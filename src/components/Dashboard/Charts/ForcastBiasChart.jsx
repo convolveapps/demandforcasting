@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BarChart,
   Bar,
+  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -30,9 +31,12 @@ const ForcastBiasChart = ({data}) => {
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
-          <Legend />
           <ReferenceLine y={0} stroke="#000" />
-          <Bar dataKey="bias" fill="#8884d8" />
+          <Bar dataKey="bias" >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry["bias"]<0 ? "#ff7752" : "#8884d8"} />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     );

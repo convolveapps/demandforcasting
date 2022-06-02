@@ -3,6 +3,21 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 
 const DriversChart = ({data}) => {
 
+
+  
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip" style={{"backgroundColor": "#FFFFFF", "padding":"10px", "border":"1px solid #CCC"}}>
+        <p className="label">{`${label}`}</p>
+        <p className="desc">{`% impact: ${payload[0].value}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
@@ -13,15 +28,13 @@ const DriversChart = ({data}) => {
           top: 5,
           right: 30,
           left: 20,
-          bottom: 5,
+          bottom: 25,
         }}
-        layout="vertical"
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis type='number' />
-        <YAxis dataKey="name" type="category" />
-        <Tooltip />
-        <Legend />
+        <XAxis dataKey="name" type="category" interval={0} angle={20} dx={20} dy={10} />
+        <YAxis />
+        <Tooltip content={<CustomTooltip />} />
         <Bar dataKey="value" fill="#8884d8" />
       </BarChart>
     </ResponsiveContainer>

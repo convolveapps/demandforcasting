@@ -6,10 +6,12 @@ export const getStaticData = (data, startDate, endDate, product, type) => {
   const finalData=[];
   if(type == "Daily"){
     for(let i=0;i<filteredData.length;i++){
+      const date = new Date(filteredData[i]["Date"]);
+
       finalData.push({
         forcasted: parseInt(filteredData[i]["Foreccasted Demand"]),
         actual: parseInt(filteredData[i]["Actual Demand"]),
-        date: filteredData[i]["Date"],
+        date: `${date.getDate()} ${getMonthString(date.getMonth())}`,
         alert: filteredData[i]["Alert"]
       });
     }
@@ -30,7 +32,7 @@ export const getStaticData = (data, startDate, endDate, product, type) => {
       }
       else{
         finalData[index].forcasted += parseInt(filteredData[i]["Foreccasted Demand"]);
-        finalData[index].actual += parseInt(filteredData[i]["Actual Demand"]);
+        finalData[index].actual += isNaN(parseInt(filteredData[i]["Actual Demand"])) ? 0 : parseInt(filteredData[i]["Actual Demand"]);
         finalData[index].alert = finalData[index].alert == 1 ? 1 : parseInt(filteredData[i]["Alert"]);
       }
     }
@@ -51,7 +53,7 @@ export const getStaticData = (data, startDate, endDate, product, type) => {
       }
       else{
         finalData[index].forcasted += parseInt(filteredData[i]["Foreccasted Demand"]);
-        finalData[index].actual += parseInt(filteredData[i]["Actual Demand"]);
+        finalData[index].actual += isNaN(parseInt(filteredData[i]["Actual Demand"])) ? 0 : parseInt(filteredData[i]["Actual Demand"]);
         finalData[index].alert = finalData[index].alert == 1 ? 1 : parseInt(filteredData[i]["Alert"]);
       }
     }
