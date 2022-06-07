@@ -2,7 +2,7 @@ import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const CustomizedDot = (props) => {
-  const { cx, cy, stroke, payload, value, type } = props;
+  const { cx, cy, stroke, payload, value, type} = props;
 
   if(type == "forecasted"){
     return (
@@ -24,12 +24,12 @@ const CustomizedDot = (props) => {
 };
 
 const CustomizedActiveDot = (props) => {
-  const { cx, cy, stroke, payload, value, type } = props;
+  const { cx, cy, stroke, payload, value, type, onclick } = props;
 
   if(type == "forecasted"){
     return (
       <svg x={cx-10} y={cy-10} width={200} height={200} viewBox="0 0 1024 1024">
-        <circle cx="50" cy="50" r="35" strokeWidth="20" fill={payload.alert==1?"#f53d3d":"#8884d8"} />
+        <circle cx="50" cy="50" r="35" strokeWidth="20" fill={payload.alert==1?"#f53d3d":"#8884d8"} onClick={() => onclick(payload)} />
       </svg>
     );
   }
@@ -39,13 +39,13 @@ const CustomizedActiveDot = (props) => {
     }
     return (
       <svg x={cx-10} y={cy-10} width={200} height={200} viewBox="0 0 1024 1024">
-        <circle cx="50" cy="50" r="35" strokeWidth="20" fill={payload.alert==1?"#f53d3d":"#78c471"} />
+        <circle cx="50" cy="50" r="35" strokeWidth="20" fill={payload.alert==1?"#f53d3d":"#78c471"} onClick={() => onclick(payload)} />
       </svg>
     )
   }
 };
 
-const SalesForcastChart = ({data}) => {
+const SalesForcastChart = ({data, handleClick}) => {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -65,8 +65,8 @@ const SalesForcastChart = ({data}) => {
         <YAxis />
         <Tooltip />
         <Legend />
-          <Line type="category" dataKey="forcasted" stroke="#8884d8" dot={<CustomizedDot type="forecasted" />} strokeWidth={2} activeDot={<CustomizedActiveDot type="forecasted" />} />
-          <Line type="category" dataKey="actual" stroke="#78c471" dot={<CustomizedDot type="actual" />} strokeWidth={2} activeDot={<CustomizedActiveDot type="actual" />} />
+          <Line type="category" dataKey="forcasted" stroke="#8884d8" dot={<CustomizedDot type="forecasted" />} strokeWidth={2} activeDot={<CustomizedActiveDot type="forecasted" onclick={handleClick} />}  />
+          <Line type="category" dataKey="actual" stroke="#78c471" dot={<CustomizedDot type="actual" />} strokeWidth={2} activeDot={<CustomizedActiveDot type="actual" onclick={handleClick} />}  />
       </LineChart>
     </ResponsiveContainer>
   );

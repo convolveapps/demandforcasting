@@ -172,6 +172,8 @@ export const totalData = (data, startDate, endDate) =>{
     }
   }
 
+  finalData.sort((a,b) => b.salesVolume - a.salesVolume);
+
   return finalData;
 }
 
@@ -225,4 +227,8 @@ function getMonthString(month){
     case 10: return "Nov";
     case 11: return "Dec";
   }
+}
+
+const getDateFromMonth = (month) => {
+  
 }

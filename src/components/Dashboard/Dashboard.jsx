@@ -11,7 +11,7 @@ import DriversChart from './Charts/DriversChart';
 
 
 const Dashboard = () => {
-  const [pageName, setPageName] = useState("Sales forcast dashboard");
+  const [pageName, setPageName] = useState("Sales forecast dashboard");
   const [pageSummary, setPageSummary] = useState();
 
   const [startDate, setStartDate] = useState("2022-01-01");
@@ -44,6 +44,20 @@ const Dashboard = () => {
     }
   },[productData,totalSalesData,startDate,endDate,productType,forcastType])
 
+  const selectSalesForecastDate = (payload) => {
+    // if(forcastType == "Daily"){
+
+    // }
+    // else if(forcastType == "Weekly"){
+
+    // }
+    // else{
+
+    // }
+    console.log(payload);
+    // console.log(productDataChart);
+  }
+
   return (
     <div className='page-details'>
       <PageHeader pageName={pageName} pageSummary={pageSummary}/>
@@ -64,7 +78,7 @@ const Dashboard = () => {
       <div className="report-container">
         <div className='sales-report'>
           <div className="card-heading">
-            <h4>Sales forcast</h4>
+            <h4>Sales forecast</h4>
             <select value={forcastType} onChange={(e) => setForcastType(e.target.value)}>
               <option value="Daily">Daily</option>
               <option value="Weekly">Weekly</option>
@@ -72,7 +86,7 @@ const Dashboard = () => {
             </select>
           </div>
           <div className="card-chart">
-            <SalesForcastChart data={productDataChart} />
+            <SalesForcastChart data={productDataChart} handleClick={selectSalesForecastDate} />
           </div>
         </div>
         <div className="driver-report">
@@ -85,7 +99,7 @@ const Dashboard = () => {
         </div>
         <div className="forcast-bias-report">
           <div className="card-heading">
-            <h4>Forcast bias</h4>
+            <h4>Forecast bias</h4>
           </div>
           <div className="card-chart">
             <ForcastBiasChart data={biasDataChart} />
